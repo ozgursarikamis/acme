@@ -1,4 +1,6 @@
 using Acme.Models;
+using Acme.Services;
+using Acme.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,8 @@ builder.Services.AddDbContext<AcmeDbContext>(options =>
         o.MigrationsAssembly("Acme.WebAPI");
     });
 });
+
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 
