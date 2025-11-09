@@ -1,6 +1,10 @@
 using Acme.Models;
 using Acme.Services;
 using Acme.Services.Interfaces;
+using Acme.WebAPI.Validators;
+
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +23,11 @@ builder.Services.AddDbContext<AcmeDbContext>(options =>
 });
 
 builder.Services.AddControllers();
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<ProductValidator>();
+
 builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
