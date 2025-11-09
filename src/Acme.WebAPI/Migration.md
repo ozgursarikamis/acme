@@ -17,3 +17,9 @@ If successful, you will see a new Migrations folder in src/Acme.WebAPI containin
 **[Timestamp]**_InitialCreate.cs (The migration)
 
 `AcmeDbContextModelSnapshot.cs` (The current state of your model)
+
+---
+
+```bash
+dotnet ef database update --startup-project src/Acme.WebAPI
+```
