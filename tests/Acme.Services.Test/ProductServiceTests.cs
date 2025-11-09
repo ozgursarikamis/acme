@@ -26,6 +26,61 @@ public class ProductServiceTests: IDisposable
         _service = new ProductService(_context);
     }
 
+
+    [Fact]
+    public async Task GetAllProductsAsyncShouldReturnAllProducts()
+    {
+        // Arrange is handled by the constructor
+
+        // Act:
+        var products = await _service.GetAllProductsAsync();
+
+        // Assert:
+        Assert.NotNull(products);
+
+        var productList = products.ToList();
+        Assert.Equal(3, productList.Count);
+    }
+
+    [Fact]
+    public async Task GetProductByIdAsync_WithValidId_ShouldReturnProduct()
+    {
+        // Arrange is handled by the constructor
+
+        const int productId = 1;
+
+        // Act:
+        var product = await _service.GetProductByIdAsync(productId);
+
+        // Assert:
+        Assert.NotNull(product);
+        Assert.Equal(productId, product.Id);
+        Assert.Equal("Product 1", product.Name);
+        Assert.Equal(1200m, product.Price);
+    }
+
+    [Fact]
+    public async Task CreateProductAsync_WithValidProduct_ShouldCreateProduct()
+    {
+        // Arrange:
+        var productToAdd = new Product
+        {
+            Name = "Product 4",
+            Price = 1000m
+        };
+
+        // Act
+        var createdProduct = await _service.CreateProductAsync(productToAdd);
+
+        // Assert:
+        Assert.NotNull(createdProduct);
+        Assert.Equal("Product 4", createdProduct.Name);
+
+        var productInDb = await _context.Products.FindAsync(createdProduct.Id);
+        Assert.NotNull(productInDb);
+        Assert.Equal(1000.00m, productInDb.Price);
+    }
+
     private async Task SeedDatabase()
     {
         _context.Products.AddRange(new List<Product>
