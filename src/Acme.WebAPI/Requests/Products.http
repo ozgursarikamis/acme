@@ -1,5 +1,18 @@
 @host = http://localhost:5040/api
 
+### Get All Products
 GET {{host}}/Products
 
 <> 2025-11-09T234106.200.json
+
+### Get Product by Id
+GET {{host}}/Products/2
+
+### Create Products
+POST {{host}}/Products
+Content-Type: application/json
+
+{
+  "Name": "New product"
+}
+

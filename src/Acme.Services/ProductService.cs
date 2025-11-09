@@ -9,9 +9,9 @@ public class ProductService(AcmeDbContext context) : IProductService
 {
     private AcmeDbContext Context { get; } = context;
 
-    public async Task<Product> GetProductByIdAsync(int id)
+    public async Task<Product?> GetProductByIdAsync(int id)
     {
-        return await Context.Products.FindAsync(id) ?? new Product();
+        return await Context.Products.FindAsync(id);
     }
 
     public async Task<IEnumerable<Product>> GetAllProductsAsync()
