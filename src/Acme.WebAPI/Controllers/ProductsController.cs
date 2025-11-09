@@ -43,4 +43,17 @@ public class ProductsController(IProductService productService) : ControllerBase
         // Standard practice for a successful PUT where the resource is updated
         return NoContent();
     }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteProduct(int id)
+    {
+        var result = await productService.DeleteProductAsync(id);
+        if (result)
+        {
+            // Standard practice for a successful DELETE
+            return NoContent();
+        }
+
+        return NotFound();
+    }
 }
