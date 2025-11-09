@@ -26,6 +26,16 @@ public class ProductsController(IProductService productService) : ControllerBase
         return Ok(product);
     }
 
+    // POST: api/Products
+    [HttpPost]
+    public async Task<ActionResult<Product>> PostProduct(Product product)
+    {
+        var createdProduct = await productService.CreateProductAsync(product);
+
+        // Returns a 201 Created status and a location header pointing to the new resource
+        return CreatedAtAction(nameof(GetProduct), new { id = createdProduct.Id }, createdProduct);
+    }
+
     // PUT puts a file or resource at a specific URI, and exactly at that URI.
     // If there's already a file or resource at that URI, PUT replaces that file or resource.
     // If there is no file or resource there, PUT creates one. PUT is idempotent,
