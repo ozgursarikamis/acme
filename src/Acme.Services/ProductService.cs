@@ -27,7 +27,7 @@ public class ProductService(AcmeDbContext context) : IProductService
         return product;
     }
 
-    public async Task<Product> UpdateProductAsync(Product product)
+    public async Task<Product?> UpdateProductAsync(Product product)
     {
         var existingProduct = await Context.Products.FindAsync(product.Id);
         if (existingProduct == null)
