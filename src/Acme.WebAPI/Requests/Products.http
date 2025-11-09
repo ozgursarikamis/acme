@@ -1,0 +1,5 @@
+@host = http://localhost:5040/api
+
+GET {{host}}/Products
+
+<> 2025-11-09T234106.200.json
