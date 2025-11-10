@@ -1,6 +1,8 @@
 using Acme.Models;
 using Acme.Models.Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace Acme.Services.Test;
 
@@ -23,7 +25,8 @@ public class ProductServiceTests: IDisposable
         // 3. (Optional) Seed the database with test data:
         _ = SeedDatabase();
 
-        _service = new ProductService(_context);
+        var loggerObject = new Mock<ILogger<ProductService>>();
+        _service = new ProductService(_context, loggerObject.Object);
     }
 
 
