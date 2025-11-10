@@ -62,9 +62,16 @@ namespace Acme.Services
             return true;
         }
 
-        public Task<IEnumerable<Order>> GetCustomerOrdersAsync(int id)
+        public async Task<IEnumerable<Order>> GetCustomerOrdersAsync(int id)
         {
-            throw new NotImplementedException();
+            return await context.Customers.Join(
+                    context.Orders,
+                    c => c.Id,
+                    o => o.CustomerId,
+                    (c, o) => o
+                )
+                .Where(x => x.Id == id)
+                .ToListAsync();
         }
     }
 }
