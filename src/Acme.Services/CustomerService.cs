@@ -61,5 +61,10 @@ namespace Acme.Services
             await context.SaveChangesAsync();
             return true;
         }
+
+        public Task<IEnumerable<Order>> GetCustomerOrdersAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
